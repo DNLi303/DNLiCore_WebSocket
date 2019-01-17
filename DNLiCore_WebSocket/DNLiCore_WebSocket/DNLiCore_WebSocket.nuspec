@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.1.0</version>
+    <title>$title$</title>
+    <authors>DNLi</authors>
+    <owners>DNLi</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>https://github.com/DNLi303/DNLiCore_WebSocket</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      DNLiCore_WebSocket框架一款超简单入手的websocket框架,几行代码搞定,小白也会用，性能方面除非有十万级别的数据，否则没压力。。。
+    </description>
+<dependencies>
+      <dependency id="Microsoft.AspNetCore.Http" version="2.1.0" />
+      <dependency id="Microsoft.Extensions.Configuration" version="2.1.1" />
+    </dependencies>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Tag1 Tag2</tags>
+  </metadata>
+</package>
