@@ -14,12 +14,14 @@ namespace DNLiCore_WebSocket
     {
         private readonly RequestDelegate _next;
         private IConfiguration _configuration;
+        public WebSocketMessageType messageType=0;
         public RequestWebSocketBaseMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
             _configuration = configuration;
+            messageType = (WebSocketMessageType)(Convert.ToInt32(_configuration.GetSection("WebSocketOption:WebSocketMessageType").Value));
         }
-
+        
         public async Task InvokeAsync(HttpContext context)
         {
             if (context.Request.Path == _configuration.GetSection("WebSocketOption:RequestUrlKey").Value)
@@ -27,7 +29,7 @@ namespace DNLiCore_WebSocket
                 //判断是不是websocket
                 if (context.WebSockets.IsWebSocketRequest)
                 {
-                    WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                    WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();                    
                     //客户端第一次连接时
                     var webSocketModel = new WebSocketModel
                     {
@@ -35,7 +37,8 @@ namespace DNLiCore_WebSocket
                         context = context,
                         webSocket = webSocket,
                         RemoteIpAddress = context.Connection.RemoteIpAddress,
-                        RemotePort = context.Connection.RemotePort
+                        RemotePort = context.Connection.RemotePort,
+                        receiveResult=new WebSocketReceiveResult(0, messageType, true)
                     };
                     WebSocketHelper.NewSessionConnected(webSocketModel);                   
                     await Echo(context, webSocket);

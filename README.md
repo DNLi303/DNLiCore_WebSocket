@@ -9,7 +9,8 @@ DNLiCore_WebSocket框架一款超简单入手的websocket框架,几行代码搞�
   "WebSocketOption": {
 			"RequestUrlKey": "/websocket", //websocket的页面路径
 			"KeepAliveInterval": 60, //服务端保持ping客户端秒数，即心跳频率，是由服务端下发
-			"ReceiveBufferSize": 4096 //接收数据的缓存大小，单位为字节
+			"ReceiveBufferSize": 4096, //接收数据的缓存大小，单位为字节
+			"WebSocketMessageType": 1 //Text:0,Binary:1
 		}
 }
 3.自定义一个类，继承于 DNLiCore_WebSocket.WebSocketHelper  
@@ -42,9 +43,11 @@ DNLiCore_WebSocket框架一款超简单入手的websocket框架,几行代码搞�
         }  
     }  
 
-4.在项目启动执行自定义的构造事件，可以在Startup.cs里面，也可以在HomeController里面
-  例如在starup.cs里面
-  new MyWebSocket();
+4.在项目启动执行自定义的构造事件，可以在Startup.cs里面，也可以在HomeController里面  
+  例如在starup.cs里面  
+  new MyWebSocket();  
+  并且在Configure里面调用该中间件    
+  app.UseRequestWebSocketBase(Configuration);  //Configuration为系统默认注入的配置IConfiguration对象  
   
 
 

@@ -37,7 +37,7 @@ namespace DNLiCore_WebSocket
         /// </summary>
         /// <param name="webSocket"></param>
         public  static  void NewSessionConnected(WebSocketModel webSocketModel)
-        {
+        {           
             AddOnlineClient(webSocketModel);
             //DNLiCore_Utility_Log.FileTxtLogs.WriteLog("客户端连接了连接ID:" + webSocketModel.ConnectionId);             
             NewSessionConnectedEvent(webSocketModel);
@@ -50,7 +50,7 @@ namespace DNLiCore_WebSocket
         /// </summary>
         /// <param name="webSocket"></param>
         public static void NewMessageReceived(WebSocketModel webSocketModel)
-        {
+        {           
             //自定义业务逻辑写在这里....
             NewMessageReceivedEvent(webSocketModel);
         }
@@ -113,15 +113,26 @@ namespace DNLiCore_WebSocket
         /// 广播，给其他在线客户端发消息
         /// </summary>
         /// <param name="msg"></param>
-        public static void SendMsgToAllOnlineClient(string msg)
-        {
-            byte[] sendBytes = System.Text.Encoding.Default.GetBytes(msg);
+        public static void SendMsgToAllOnlineClient(string ConnectionId, byte[] sendBytes)
+        {            
             foreach (string item in keyValuePairs.Keys)
             {
-                WebSocketModel myWebSocketModel = new WebSocketModel();
-                if (keyValuePairs.TryGetValue(item, out myWebSocketModel))
+                if (item != ConnectionId)
                 {
-                    myWebSocketModel.webSocket.SendAsync(new ArraySegment<byte>(sendBytes), myWebSocketModel.receiveResult.MessageType, myWebSocketModel.receiveResult.EndOfMessage, CancellationToken.None);
+                    WebSocketModel myWebSocketModel = new WebSocketModel();
+                    if (keyValuePairs.TryGetValue(item, out myWebSocketModel))
+                    {
+
+                        try
+                        {
+                            myWebSocketModel.webSocket.SendAsync(new ArraySegment<byte>(sendBytes), myWebSocketModel.receiveResult.MessageType, true, CancellationToken.None);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            throw;
+                        }
+                    }
                 }
             }
         }
