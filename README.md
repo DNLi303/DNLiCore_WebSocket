@@ -3,18 +3,18 @@
 --------------------------------------介绍说明---------------------------------------------  
 DNLiCore_WebSocket框架一款超简单入手的websocket框架,几行代码搞定,小白也会用，性能方面除非有十万级别的数据，否则没压力。。。  
 --------------------------------------使用说明---------------------------------------------   
-1.通过Nuget安装DNLiCore_WebSocket类
-2.在appsettings.json配置所需要的数据库的配置例如
-{
-  "WebSocketOption": {
-			"RequestUrlKey": "/websocket", //websocket的页面路径
-			"KeepAliveInterval": 60, //服务端保持ping客户端秒数，即心跳频率，是由服务端下发
-			"ReceiveBufferSize": 4096, //接收数据的缓存大小，单位为字节
-			"WebSocketMessageType": 1 //Text:0,Binary:1
-		}
-}
-3.自定义一个类，继承于 DNLiCore_WebSocket.WebSocketHelper  
-  例如  
+1.通过Nuget安装DNLiCore_WebSocket类  
+2.在appsettings.json配置所需要的数据库的配置例如  
+{  
+  "WebSocketOption": {  
+			"RequestUrlKey": "/websocket", //websocket的页面路径  
+			"KeepAliveInterval": 60, //服务端保持ping客户端秒数，即心跳频率，是由服务端下发  
+			"ReceiveBufferSize": 4096, //接收数据的缓存大小，单位为字节  
+			"WebSocketMessageType": 1 //Text:0,Binary:1  
+		}  
+}  
+3.自定义一个类，继承于 DNLiCore_WebSocket.WebSocketHelper    
+  例如    
   public class MyWebSocket : DNLiCore_WebSocket.WebSocketHelper  
     {  
         public MyWebSocket()  
